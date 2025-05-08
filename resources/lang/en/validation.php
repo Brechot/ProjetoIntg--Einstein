@@ -13,6 +13,7 @@ return [
     |
     */
 
+
     'accepted' => 'The :attribute must be accepted.',
     'accepted_if' => 'The :attribute must be accepted when :other is :value.',
     'active_url' => 'The :attribute is not a valid URL.',
@@ -107,7 +108,7 @@ return [
     'prohibited_unless' => 'The :attribute field is prohibited unless :other is in :values.',
     'prohibits' => 'The :attribute field prohibits :other from being present.',
     'regex' => 'The :attribute format is invalid.',
-    'required' => 'The :attribute field is required.',
+    'required' => 'O campo :attribute é obrigatório.',
     'required_array_keys' => 'The :attribute field must contain entries for: :values.',
     'required_if' => 'The :attribute field is required when :other is :value.',
     'required_unless' => 'The :attribute field is required unless :other is in :values.',
@@ -125,7 +126,7 @@ return [
     'starts_with' => 'The :attribute must start with one of the following: :values.',
     'string' => 'The :attribute must be a string.',
     'timezone' => 'The :attribute must be a valid timezone.',
-    'unique' => 'The :attribute has already been taken.',
+    'unique' => 'O :attribute já está em uso.',
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute must be a valid URL.',
     'uuid' => 'The :attribute must be a valid UUID.',
@@ -158,6 +159,21 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes'                     => [
+        'title'             =>'título',
+        'hours'             =>'horas',
+        'password'          =>'senha',
+        'sla_time'          =>'campo dias',
+        'incident_id'       =>'problema',
+        'rating'            =>'Avaliação',
+        'description'       =>'Descrição',
+        'close_desc'        =>'Comentário',
+        'hor_ini'           =>'Hora Inicial',
+        'dat_ini'           =>'Data Inicial',
+        'hor_fin'           =>'Hora Final',
+        'dat_fin'           =>'Data Final',
+        'name'              =>'Nome',
+
+    ],
 
 ];

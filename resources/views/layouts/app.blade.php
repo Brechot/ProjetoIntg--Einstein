@@ -12,14 +12,23 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+{{--    Font awesome--}}
+    <script src="https://kit.fontawesome.com/b5346fc162.js" crossorigin="anonymous"></script>
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    @livewireStyles
+
 </head>
 <body>
+
+@include('flash-message')
+
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -79,5 +88,6 @@
             @yield('content')
         </main>
     </div>
+    @livewireScripts
 </body>
 </html>

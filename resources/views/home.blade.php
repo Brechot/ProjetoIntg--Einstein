@@ -14,6 +14,13 @@
                         </div>
                     @endif
 
+                    <a href="{{route("einstein.users.index")}}">users</a>
+                    <a href="{{route("einstein.roles.index")}}">roles</a>
+                    <a href="{{route("einstein.discipline.index")}}">discipline</a>
+                    <a href="{{route("einstein.laboratory.index")}}">laboratory</a>
+                    <a href="{{route("einstein.reserve.index")}}">reserve</a>
+                    <a href="{{route("einstein.software.index")}}">software</a>
+
                     {{ __('You are logged in!') }}
                 </div>
             </div>

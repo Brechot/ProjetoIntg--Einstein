@@ -23,8 +23,14 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerPolicies();
+//        $this->registerPolicies();
 
-        //
+        Gate::define('role', function ($user, ...$roles) {
+            // Padroniza tudo pra lowercase
+            $userRole = strtolower($user->role->title);
+            $expectedRoles = array_map('strtolower', $roles);
+
+            return in_array($userRole, $expectedRoles);
+        });
     }
 }
