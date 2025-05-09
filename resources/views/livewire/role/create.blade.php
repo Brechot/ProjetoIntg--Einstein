@@ -4,8 +4,9 @@
         <x-spinner></x-spinner>
     </div>
 
+    <div class="shadow p-5 mb-5 bg-emphasis rounded">
         <div class="col-md-4 position-relative">
-            <label for="validationTooltip01" class="form-label">Titulo <span style="color:red;">*</span></label>
+            <label for="title" class="form-label uk-text-bold">Titulo <span style="color:red;">*</span></label>
             <input wire:model.defer="role.title" type="text" class="form-control" id="title" required>
             <div class="text-danger">
                 {{ $errors->first('role.title') }}
@@ -23,13 +24,14 @@
 {{--        </div>--}}
 
 
-    <div class="form-group pt-5">
-        <button class="btn btn-primary" type="submit">
-            Salvar
-        </button>
-        <a href="{{ route('einstein.roles.index') }}" class="btn btn-secondary">
-            Cancelar
-        </a>
+        <div class="form-group pt-5">
+            <button class="btn btn-primary" type="submit">
+                Salvar
+            </button>
+            <a href="{{ route('einstein.roles.index') }}" class="btn btn-secondary">
+                Cancelar
+            </a>
+        </div>
     </div>
 
 </form>

@@ -9,3 +9,287 @@
 
 //@import "~uikit/dist/css/uikit.min.css";
 @import 'uikit/dist/css/uikit.min.css';
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wdth,wght@99.5,800&display=swap');
+
+//Colocando footer
+
+body, html {
+    //height: 100%;
+}
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+//Colocando footer
+
+/* Adiciona espaço à esquerda em telas grandes para acomodar a sidebar fixa */
+@media (min-width: 992px) {
+    .main-content {
+        margin-left: 210px; /* mesmo valor da largura da sidebar */
+    }
+    .navbar {
+        margin-left: 210px; /* igual à largura da sidebar */
+    }
+    #maincard{
+        margin-left: 185px;
+    }
+}
+
+@media (max-width: 992px) {
+    .main-content .row{
+        justify-content: center;
+    }
+}
+
+.stoppingPadding{
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    background-color:#d6d6d6
+}
+
+body{
+    background-color: #d6d6d6 !important;
+}
+
+.card-body, div.card{
+    background-color: #9F9F9F;
+    border-radius: 10px;
+}
+
+h4.card-title{
+    color: white;
+    text-align: center;
+    font-size: xx-large;
+}
+
+.main-content .row{
+    margin-top: 40px;
+}
+
+.main-content .row:not(:first-of-type) {
+    margin-top: 80px;
+}
+
+.card-wrapper > .card{
+    width: 400px;
+    margin: 15px;
+}
+
+#remov-edit > .btn{
+    border: none;
+    text-align: left;
+    font-weight: bold;
+    font-size: large;
+}
+
+#card-visu {
+    display: flex;
+    justify-content: center;
+}
+
+#card-visu > a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    width: 320px;
+    height: 35px;
+    color: black;
+    border-color: black;
+    /* background-color: #D9D9D9; */
+}
+
+#card-visu > a span {
+    font-weight: bold;
+    font-size: large;
+}
+
+.navbar-brand h1{
+    color: rgb(3, 3, 3);
+    font-family: "Open Sans", sans-serif;
+    margin-left: 110px;
+    margin-bottom: 10px;
+}
+
+.linha-abaixo{
+    height: 1px;
+    width: 100%;
+    border-top: 1px solid black;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+
+.sidebar{
+    position: fixed;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;;
+    border-right: 1px solid black;
+    width: 210px;
+    min-height: 100%;
+    background-color: #434242;
+}
+
+.sidebar button{
+    background: transparent;
+    border: 0;
+    color: #B8C7CE;
+    cursor: pointer;
+    margin-left: 10px;
+    margin: 5px;
+    padding: 20px 10px 30px 5px;
+    font-size: 20px;
+    height: 5px;
+}
+
+.sidebar span{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #B8C7CE;
+    margin-top: -5px
+}
+
+.sidebar button:hover{
+    background-color: #515050;
+    border-radius: 20px;
+    color: white;
+    transition: 0.1s;
+    height: 5px;
+}
+
+.input-form form {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input-form input {
+    box-sizing: border-box;
+    background-color: transparent;
+    border-style: double;
+}
+.input-form label {
+    margin-bottom: 0px; /* aproxima o label do input */
+    font-family: 'open sans';
+
+}
+
+.input-botao button{
+    margin-top: 100px;
+    width: 100px;
+    height: 50px;
+    margin-right: 40px;
+
+}
+
+
+/* Esconde a sidebar por padrão em telas pequenas */
+@media (max-width: 991.98px) {
+    .sidebar {
+        display: none;
+    }
+
+    .sidebar.active {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1050;
+        height: 100vh;
+        width: 210px;
+        background-color: #434242;
+        flex-direction: column;
+    }
+}
+
+
+
+table, th, td{
+    border: solid 1px black;
+    margin: 0 auto;
+}
+
+table{
+    border-collapse: collapse;
+
+}
+
+
+.input-checkbox{
+    height: 30px;
+    width: 30px;
+}
+
+.container-checkbox{
+    display: flex;
+}
+
+.input-checkbox:hover{
+    cursor: pointer;
+}
+
+.container-checkbox{
+    gap: 10px;
+
+}
+
+.bodylogin {
+    background-color: #000 !important;
+    height: 100vh;
+
+    .login-container {
+        border-radius: 15px;
+        background-color: #ddd;
+        padding: 60px;
+        width: 100%;
+        max-width: 650px;
+        height: 100%;
+        max-height: 550px;
+        font-size: 1.4rem;
+    }
+
+    .form-control {
+        border: none;
+        border-bottom: 3px solid black;
+        border-radius: 0;
+        background-color: transparent !important;
+    }
+
+    .form-control:focus{
+        outline: none;
+        box-shadow: none;
+        border-color: black;
+    }
+
+    .btn-login{
+        background-color: #797979;
+        color: white;
+        border: none;
+        width: 100%;
+        font-size: 1.2rem;
+
+    }
+
+    .btn-login:hover{
+        background-color: #797979;
+        color: white;
+    }
+
+    .left-image {
+        height: 100vh;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    .login-container h1{
+        font-size: 4rem;
+    }
+}

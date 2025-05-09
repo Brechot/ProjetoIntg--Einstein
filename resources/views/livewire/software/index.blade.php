@@ -3,9 +3,10 @@
     <div wire:loading>
         <x-spinner></x-spinner>
     </div>
-    <table class="table">
+    <div class="shadow table-responsive p-5 mb-5 bg-emphasis rounded">
+        <table class="table table-sm table-striped overflow-x-scroll">
         <thead>
-        <tr>
+        <tr class="table-dark">
             <th scope="col">
                 Id
             </th>
@@ -20,20 +21,20 @@
         <tbody>
         @forelse($softwares as $software)
             <tr>
-                <td>
+                <td class="uk-text-bold ps-2">
                     {{ $software->id }}
                 </td>
-                <td>
+                <td class="ps-2">
                     {{ $software->title }}
                 </td>
-                <td>
+                <td class="text-center">
                     @if($software->status)
                         <input class="form-check-input" type="checkbox" value="" id="checkCheckedDisabled" checked disabled>
                     @else
                         <input class="form-check-input" type="checkbox" value="" id="checkDisabled" disabled>
                     @endif
                 </td>
-                <td>
+                <td class="text-center">
                     <div>
                         @if (auth()->user()->hasAnyRole(['admin', 'ti']))
                             <a class="btn btn-success btn-sm" href="{{ route('einstein.software.edit', $software) }}">
@@ -51,7 +52,7 @@
         </tbody>
     </table>
 
-    <div class="form-group pt-5">
+    <div class="form-group pt-2">
         <a class="btn btn-primary" type="submit" href="{{route("einstein.software.create")}}">
             Criar Regra
         </a>
