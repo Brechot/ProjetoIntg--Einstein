@@ -1,195 +1,50 @@
-<div class="main-content" id="maincard">
-    <div class="row flex-wrap" id="maincard">
-        <!-- CARD 1 -->
-        <div class="col-auto card-wrapper">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">RESERVA 11/04 - 16/04</h4>
-                    <div class="linha-abaixo" style="border-top: 2px solid white"></div>
-                    <div class="d-flex justify-content-between align-items-center" style="margin: 20px;">
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-text">
+                    <div class="d-flex justify-content-between">
+                        <div class="uk-text-bold fs-3">
+                            Entre no laboratório para visualizar suas reservas!
+                        </div>
                         <div>
-                            <div class="text-center"> <h4 class="card-title" style="font-size: xx-large;">LAB 1 - 19:00</h4></div>
-                        </div>
-
-                        <div class="ms-auto d-flex flex-column justify-content-center" id="remov-edit">
-                            <button type="button" class="btn btn-outline-danger">
-                                <i class="fa-solid fa-trash"></i>
-                                <span>REMOVER</span>
-                            </button>
-                            <br>
-                            <button type="button" class="btn btn-outline-primary">
-                                <i class="fa-solid fa-square-plus"></i>
-                                <span>EDITAR</span>
-                            </button>
+                            @if (auth()->user()->hasAnyRole(['admin', 'coordenador']))
+                                <a class="text-end btn btn-primary" href="{{route('einstein.reserve.approve')}}">
+                                    Aprovações <i class="fa-solid fa-thumbs-up"></i>
+                                </a>
+                            @endif
                         </div>
                     </div>
-                    <div id="card-visu">
-                        <a href="#" class="btn btn-light">
-                            <i class="fa-solid fa-eye"></i>
-                            <span>VISUALIZAR</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- CARD 2 -->
-        <div class="col-auto card-wrapper">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">RESERVA 11/04 - 14/04</h4>
-                    <div class="linha-abaixo" style="border-top: 2px solid white"></div>
-                    <div class="d-flex justify-content-between align-items-center" style="margin: 20px;">
-                        <div>
-                            <div class="text-center"> <h4 class="card-title">LAB 2 - 19:00</h4></div>
-                        </div>
-
-                        <div class="ms-auto d-flex flex-column justify-content-center" id="remov-edit">
-                            <button type="button" class="btn btn-outline-danger">
-                                <i class="fa-solid fa-trash"></i>
-                                <span>REMOVER</span>
-                            </button>
-                            <br>
-                            <button type="button" class="btn btn-outline-primary">
-                                <i class="fa-solid fa-square-plus"></i>
-                                <span>EDITAR</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div id="card-visu">
-                        <a href="#" class="btn btn-light">
-                            <i class="fa-solid fa-eye"></i>
-                            <span>VISUALIZAR</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- CARD 3 -->
-        <div class="col-auto card-wrapper">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">RESERVA 14/04 - 18/04</h4>
-                    <div class="linha-abaixo" style="border-top: 2px solid white"></div>
-                    <div class="d-flex justify-content-between align-items-center" style="margin: 20px;">
-                        <div>
-                            <div class="text-center"> <h4 class="card-title">LAB 3 - 19:00</h4></div>
-                        </div>
-
-                        <div class="ms-auto d-flex flex-column justify-content-center" id="remov-edit">
-                            <button type="button" class="btn btn-outline-danger">
-                                <i class="fa-solid fa-trash"></i>
-                                <span>REMOVER</span>
-                            </button>
-                            <br>
-                            <button type="button" class="btn btn-outline-primary">
-                                <i class="fa-solid fa-square-plus"></i>
-                                <span>EDITAR</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div id="card-visu">
-                        <a href="#" class="btn btn-light">
-                            <i class="fa-solid fa-eye"></i>
-                            <span>VISUALIZAR</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- CARD 4 -->
-        <div class="col-auto card-wrapper">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">RESERVA 11/04 - 16/04</h4>
-                    <div class="linha-abaixo" style="border-top: 2px solid white"></div>
-                    <div class="d-flex justify-content-between align-items-center" style="margin: 20px;">
-                        <div>
-                            <div class="text-center"> <h4 class="card-title" style="font-size: xx-large;">LAB 1 - 19:00</h4></div>
-                        </div>
-
-                        <div class="ms-auto d-flex flex-column justify-content-center" id="remov-edit">
-                            <button type="button" class="btn btn-outline-danger">
-                                <i class="fa-solid fa-trash"></i>
-                                <span>REMOVER</span>
-                            </button>
-                            <br>
-                            <button type="button" class="btn btn-outline-primary">
-                                <i class="fa-solid fa-square-plus"></i>
-                                <span>EDITAR</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div id="card-visu">
-                        <a href="#" class="btn btn-light">
-                            <i class="fa-solid fa-eye"></i>
-                            <span>VISUALIZAR</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- CARD 5 -->
-        <div class="col-auto card-wrapper">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">RESERVA 11/04 - 14/04</h4>
-                    <div class="linha-abaixo" style="border-top: 2px solid white"></div>
-                    <div class="d-flex justify-content-between align-items-center" style="margin: 20px;">
-                        <div>
-                            <div class="text-center"> <h4 class="card-title">LAB 2 - 19:00</h4></div>
-                        </div>
-
-                        <div class="ms-auto d-flex flex-column justify-content-center" id="remov-edit">
-                            <button type="button" class="btn btn-outline-danger">
-                                <i class="fa-solid fa-trash"></i>
-                                <span>REMOVER</span>
-                            </button>
-                            <br>
-                            <button type="button" class="btn btn-outline-primary">
-                                <i class="fa-solid fa-square-plus"></i>
-                                <span>EDITAR</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div id="card-visu">
-                        <a href="#" class="btn btn-light">
-                            <i class="fa-solid fa-eye"></i>
-                            <span>VISUALIZAR</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- CARD 6 -->
-        <div class="col-auto card-wrapper">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">RESERVA 14/04 - 18/04</h4>
-                    <div class="linha-abaixo" style="border-top: 2px solid white"></div>
-                    <div class="d-flex justify-content-between align-items-center" style="margin: 20px;">
-                        <div>
-                            <div class="text-center"> <h4 class="card-title">LAB 3 - 19:00</h4></div>
-                        </div>
-
-                        <div class="ms-auto d-flex flex-column justify-content-center" id="remov-edit">
-                            <button type="button" class="btn btn-outline-danger">
-                                <i class="fa-solid fa-trash"></i>
-                                <span>REMOVER</span>
-                            </button>
-                            <br>
-                            <button type="button" class="btn btn-outline-primary">
-                                <i class="fa-solid fa-square-plus"></i>
-                                <span>EDITAR</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div id="card-visu">
-                        <a href="#" class="btn btn-light">
-                            <i class="fa-solid fa-eye"></i>
-                            <span>VISUALIZAR</span>
-                        </a>
-                    </div>
-                </div>
+                </p>
             </div>
         </div>
     </div>
+</div>
+
+<div class="row">
+    @foreach($laboratorys as $laboratory)
+        <div class="col-md-4 mb-4 mt-4 d-flex align-items-stretch">
+            <div class="card w-100">
+                <div class="card-body d-flex flex-column">
+                    <h4 class="card-title">{{ $laboratory->title }}</h4>
+                    <div class="linha-abaixo" style="border-top: 2px solid white"></div>
+                    <div>Capacidade de Alunos: {{ $laboratory->num_computers * 2 }}</div>
+                    <div>Softwares Instalados:</div>
+                    <ul class="list-unstyled ps-3">
+                        @forelse($laboratory->softwares as $software)
+                            <li>• {{ $software->title }}</li>
+                        @empty
+                            <li class="text-muted">Nenhum software cadastrado.</li>
+                        @endforelse
+                    </ul>
+                    <div class="mt-auto text-center">
+                        <a href="{{ route('einstein.reserve.create', $laboratory->id) }}" class="btn btn-light">
+                            <i class="fa-solid fa-eye"></i>
+                            <span>VISUALIZAR RESERVAS</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+</div>

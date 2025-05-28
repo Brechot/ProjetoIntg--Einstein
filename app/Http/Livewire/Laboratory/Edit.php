@@ -3,15 +3,22 @@
 namespace App\Http\Livewire\Laboratory;
 
 use App\Models\Laboratory;
+use App\Models\Software;
 use Livewire\Component;
 
 class Edit extends Component
 {
     public Laboratory $laboratory;
 
+    public $softwares;
+    public $selectedSoftwares = [];
+
     public function mount(Laboratory $laboratory)
     {
         $this->laboratory = $laboratory;
+
+        $this->softwares = Software::all()->where('status', 1);
+        $this->selectedSoftwares = $this->laboratory->softwares->pluck('id')->toArray();
     }
 
     public function render()
@@ -24,6 +31,8 @@ class Edit extends Component
         $this->validate();
 
         $this->laboratory->save();
+
+        $this->laboratory->softwares()->sync($this->selectedSoftwares); //salvando softwares relacionados
 
         return redirect()->route('einstein.laboratory.index')->with('success', 'Editado com Sucesso!');
     }
@@ -41,7 +50,14 @@ class Edit extends Component
             ],
             'laboratory.status' => [
                 'boolean'
-            ]
+            ],
+            'selectedSoftwares' => [
+                'array'
+            ],
+            'selectedSoftwares.*' => [
+                'integer',
+                'exists:software,id'
+            ],
         ];
     }
 }

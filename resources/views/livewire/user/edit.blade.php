@@ -4,7 +4,7 @@
         <x-spinner></x-spinner>
     </div>
 
-    <div class="shadow p-5 mb-5 bg-emphasis rounded">
+    <div class="shadow p-5 mb-5 bg-body-tertiary rounded">
         <div class="col-md-5 position-relative pb-2">
             <label for="name" class="form-label uk-text-bold">Nome <span style="color:red;">*</span> </label>
             <input wire:model.defer="user.name" type="text" class="form-control" id="name" name="name" required>

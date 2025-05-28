@@ -17,14 +17,18 @@ class Software extends Model
         'deleted_at'
     ];
 
-    public function laboratory()
+    public function laboratories()
     {
-        return $this->belongsToMany(Laboratory::class);
+        return $this->belongsToMany(Laboratory::class, 'laboratory_software')
+            ->withPivot('seen_at')
+            ->withTimestamps();
     }
 
-    public function Discipline()
+    public function disciplines()
     {
-        return $this->belongsToMany(Discipline::class);
+        return $this->belongsToMany(Discipline::class, 'discipline_software')
+            ->withPivot('seen_at')
+            ->withTimestamps();
     }
 
 }

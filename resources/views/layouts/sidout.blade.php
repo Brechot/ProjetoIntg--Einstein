@@ -12,7 +12,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
-{{--    Font awesome--}}
+    {{--    Font awesome--}}
     <script src="https://kit.fontawesome.com/b5346fc162.js" crossorigin="anonymous"></script>
 
     <!-- css -->
@@ -38,24 +38,20 @@
 
 {{--style="overflow-x: hidden;"--}}
 
-    <div id="app">
-            <div class="row stoppingPadding">
-                <div class="col-2" style="padding-left: 0 !important;">
-                    <x-side-bar/>
-                </div>
+<div id="app">
+    <div class="row stoppingPadding">
+        <div class="col-12">
+            <div class="container">
+                <main >
+                    @include('flash-message')
 
-                <div class="col-9">
-                    <div class="container">
-                    <main >
-                        @include('flash-message')
-
-                        @yield('content')
-                    </main>
-                </div>
+                    @yield('content')
+                </main>
             </div>
         </div>
     </div>
-    @livewireScripts
+</div>
+@livewireScripts
 
 {{--js--}}
 <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>

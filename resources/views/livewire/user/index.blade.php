@@ -3,7 +3,7 @@
     <div wire:loading>
         <x-spinner></x-spinner>
     </div>
-    <div class="shadow table-responsive p-5 mb-5 bg-emphasis rounded">
+    <div class="shadow table-responsive p-5 mb-5 bg-body-tertiary rounded">
         <table class="table table-sm table-striped overflow-x-scroll">
             <thead>
             <tr class="table-dark">
@@ -70,7 +70,7 @@
                 Criar Usuário
             </a>
             <a href="{{ route('einstein.home') }}" class="btn btn-secondary">
-                Cancelar
+                Voltar
             </a>
         </div>
     </div>

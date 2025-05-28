@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +21,21 @@ use Illuminate\Support\Facades\Route;
 */
 Route::redirect('/', '/login');
 
-Auth::routes(['verify' => false]);
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+// Registrar usuários
+Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('register', [RegisterController::class, 'register']);
+
+// Redefinir senha
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+
+// AQUI SUA ROTA PERSONALIZADA
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 Route::group(['prefix' => 'einstein', 'as' => 'einstein.', 'middleware' => ['auth'/*, 'verified'*/]], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -35,7 +53,9 @@ Route::resource('discipline', \App\Http\Controllers\admin\DisciplineController::
 Route::resource('laboratory', \App\Http\Controllers\admin\LaboratoryController::class, ['except' => ['store', 'update', 'destroy']]);
 
 // reserve
-Route::resource('reserve', \App\Http\Controllers\admin\ReserveController::class, ['except' => ['store', 'update', 'destroy']]);
+Route::resource('reserve', \App\Http\Controllers\admin\ReserveController::class, ['except' => ['create','store', 'update', 'destroy']]);
+Route::get('reserve/create/{laboratory}', [\App\Http\Controllers\admin\ReserveController::class, 'create'])->name('reserve.create');
+Route::get('approve', [\App\Http\Controllers\admin\ReserveController::class, 'approve'])->name('reserve.approve');
 
 // software
 Route::resource('software', \App\Http\Controllers\admin\SoftwareController::class, ['except' => ['store', 'update', 'destroy']]);

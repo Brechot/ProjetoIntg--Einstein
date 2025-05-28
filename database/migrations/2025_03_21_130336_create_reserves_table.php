@@ -16,10 +16,10 @@ class CreateReservesTable extends Migration
         Schema::create('reserves', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->date('dat_ini');
-            $table->time('hor_ini');
-            $table->date('dat_fin');
-            $table->time('hor_fin');
+            $table->date('datini');
+            $table->time('horini');
+            $table->date('datfin');
+            $table->time('horfin');
             $table->Integer('status');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

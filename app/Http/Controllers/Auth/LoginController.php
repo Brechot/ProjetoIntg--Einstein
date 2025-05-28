@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use http\Client\Curl\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class LoginController extends Controller
@@ -32,28 +33,44 @@ class LoginController extends Controller
 
     protected $redirectTo = RouteServiceProvider::HOME;
 
-    //Metodo de login utilizado pela biblioteca AuthenticatesUsers, estou subscrevendo o metodo de login para ver se a necessidade de restaurar senha
-    protected function authenticated(Request $request, $user) //ja traz o user pela função nativa
+    //Metodo de login utilizado pela biblioteca AuthenticatesUsers, estou subscrevendo o metodo de login para ver se a necessidade de restaurar senh
+
+    public function login(Request $request)
     {
-        if ($user->status == 0){
-            return redirect('login')->with('error', 'Usuário inativo, entrar em contato com o administrador!');
-        }else{
-        if ($user->reset_psw == true){
+        $this->validateLogin($request);
 
-            $token = app('auth.password.broker')->createToken($user); //token necessário para realizar o reset da senha
+        if (method_exists($this, 'hasTooManyLoginAttempts') &&
+            $this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+            return $this->sendLockoutResponse($request);
+        }
 
-            return view('auth.passwords.reset')->with([
+        if (Auth::attempt($this->credentials($request), $request->filled('remember'))) {
+            $request->session()->regenerate();
+            $user = Auth::user();
+
+            if ($user->status == 0) {
+                Auth::logout();
+                return redirect('login')->with('error', 'Usuário inativo, entrar em contato com o administrador!');
+            }
+
+            if ($user->reset_psw) {
+                $token = app('auth.password.broker')->createToken($user);
+                return view('auth.passwords.reset')->with([
                     'token'             => $token,
                     'id'                => $user->id,
                     'email'             => $user->email,
                     'username'          => $user->username,
                     'password_old'      => $request->password,
                     'current_password'  => true,
-                ]
-            );
+                ]);
+            }
+
+            return redirect()->intended($this->redirectPath());
         }
-            return redirect()->intended($this->redirectTo);
-        }
+
+        $this->incrementLoginAttempts($request);
+        return $this->sendFailedLoginResponse($request);
     }
 
 

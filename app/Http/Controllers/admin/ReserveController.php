@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Reserve;
+use App\Models\Laboratory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Gate;
@@ -27,11 +28,13 @@ class ReserveController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($laboratoryId)
     {
         abort_unless(Gate::allows('role', ['admin','coordenador']), 403);
 
-        return view('admin.reserve.create');
+        $laboratory = Laboratory::with('softwares')->findOrFail($laboratoryId);
+
+        return view('admin.reserve.create', compact('laboratory'));
     }
 
     /**
@@ -92,5 +95,12 @@ class ReserveController extends Controller
     public function destroy(Reserve $reserve)
     {
         //
+    }
+
+    public function approve()
+    {
+        abort_unless(Gate::allows('role', ['admin','diretor']), 403);
+
+        return view('admin.reserve.approve');
     }
 }

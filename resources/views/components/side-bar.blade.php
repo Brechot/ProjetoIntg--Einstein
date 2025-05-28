@@ -13,7 +13,7 @@
             <i class="fas fa-times"></i>
         </button>
 
-        <a href="">
+        <a href="{{route("einstein.reserve.index")}}">
             <button class="sidebar-button-user">
                 <span>
                   <i class="fa-solid fa-house"></i>

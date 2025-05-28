@@ -12,7 +12,7 @@ class Index extends Component
 
     public function mount()
     {
-        $this->disciplines = Discipline::get();
+        $this->disciplines = Discipline::with('softwares')->get();
     }
 
     public function render()

@@ -40,7 +40,7 @@ class Create extends Component
         $this->user->password = Hash::make($this->user->password); // criptografando
         $this->user->save();
 
-        return redirect()->route('einstein.users.index')->with('success', 'Software ID: '.$this->software->id.' Criado com Sucesso!');
+        return redirect()->route('einstein.users.index')->with('success', 'Usuário ID: '.$this->user->id.' Criado com Sucesso!');
     }
 
     protected function rules(): array

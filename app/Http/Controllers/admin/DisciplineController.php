@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Discipline;
+use App\Models\Software;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Gate;

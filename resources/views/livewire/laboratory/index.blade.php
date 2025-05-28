@@ -3,7 +3,7 @@
     <div wire:loading>
         <x-spinner></x-spinner>
     </div>
-    <div class="shadow table-responsive p-5 mb-5 bg-emphasis rounded">
+    <div class="shadow table-responsive p-5 mb-5 bg-body-tertiary rounded">
         <table class="table table-sm table-striped overflow-x-scroll">
         <thead>
         <tr class="table-dark">
@@ -15,6 +15,9 @@
             </th>
             <th scope="col">
                 Num Computadores
+            </th>
+            <th scope="col">
+                Softwares Disponíveis
             </th>
             <th scope="col">
                 Status
@@ -33,6 +36,15 @@
                 <td class="ps-2">
                     {{ $laboratory->num_computers }}
                 </td>
+                <td class="ps-2">
+                    @if($laboratory->softwares->isNotEmpty())
+                        @foreach($laboratory->softwares as $software)
+                            <span class="badge bg-secondary">{{ $software->title }}</span>
+                        @endforeach
+                    @else
+                        <span class="text-muted">Nenhum</span>
+                    @endif
+                </td>
                 <td class="text-center">
                     @if($laboratory->status)
                         <input class="form-check-input" type="checkbox" value="" id="checkCheckedDisabled" checked disabled>
@@ -42,7 +54,7 @@
                 </td>
                 <td class="text-center">
                     <div>
-                        @if (auth()->user()->hasAnyRole(['admin', 'ti']))
+                        @if (auth()->user()->hasAnyRole(['admin', 'diretor']))
                             <a class="btn btn-success btn-sm" href="{{ route('einstein.laboratory.edit', $laboratory) }}">
                                 Editar
                             </a>
@@ -60,10 +72,10 @@
 
         <div class="form-group pt-2">
             <a class="btn btn-primary" type="submit" href="{{route("einstein.laboratory.create")}}">
-                Criar Regra
+                Criar Laboratório
             </a>
             <a href="{{ route('einstein.home') }}" class="btn btn-secondary">
-                Cancelar
+                Voltar
             </a>
         </div>
     </div>

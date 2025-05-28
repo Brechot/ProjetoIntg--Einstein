@@ -17,7 +17,7 @@ class Laboratory extends Model
         'deleted_at'
     ];
 
-    public function software()
+    public function softwares()
     {
         return $this->belongsToMany(Software::class);
     }

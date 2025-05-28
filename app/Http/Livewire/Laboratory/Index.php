@@ -11,7 +11,7 @@ class Index extends Component
 
     public function mount()
     {
-        $this->laboratorys = Laboratory::get();
+        $this->laboratorys = Laboratory::with('softwares')->get();
     }
     public function render()
     {
