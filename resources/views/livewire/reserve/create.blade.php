@@ -26,7 +26,7 @@
                                 <select class="form-select" required id="discipline_id" name="discipline_id" wire:model.defer="reserve.discipline_id">
                                     <option value="">Selecionar Disciplina</option>
                                     @foreach($this->discipline as $key => $discipline)
-                                        <option value="{{$key+1}}">{{$discipline->title}}</option>
+                                        <option value="{{$discipline->id}}">{{$discipline->title}}</option>
                                     @endforeach
                                 </select>
                                 <div class="text-danger">
