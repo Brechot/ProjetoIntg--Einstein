@@ -16,7 +16,7 @@ class LaboratoryController extends Controller
      */
     public function index()
     {
-        abort_unless(Gate::allows('role', ['admin', 'diretor']), 403);
+        abort_unless(Gate::allows('role', ['admin', 'diretor','ti']), 403);
 
         return view('admin.laboratory.index');
     }
@@ -63,7 +63,7 @@ class LaboratoryController extends Controller
      */
     public function edit(Laboratory $laboratory)
     {
-        abort_unless(Gate::allows('role', ['admin', 'diretor']), 403);
+        abort_unless(Gate::allows('role', ['admin', 'diretor','ti']), 403);
 
         return view('admin.laboratory.edit', compact('laboratory'));
     }

@@ -22,6 +22,9 @@
             <th scope="col">
                 Status
             </th>
+            <th scope="col">
+                Ações
+            </th>
         </tr>
         </thead>
         <tbody>
@@ -54,7 +57,7 @@
                 </td>
                 <td class="text-center">
                     <div>
-                        @if (auth()->user()->hasAnyRole(['admin', 'diretor']))
+                        @if (auth()->user()->hasAnyRole(['admin', 'diretor','ti']))
                             <a class="btn btn-success btn-sm" href="{{ route('einstein.laboratory.edit', $laboratory) }}">
                                 Editar
                             </a>
@@ -71,9 +74,11 @@
         </table>
 
         <div class="form-group pt-2">
+            @if (auth()->user()->hasAnyRole(['admin', 'diretor']))
             <a class="btn btn-primary" type="submit" href="{{route("einstein.laboratory.create")}}">
                 Criar Laboratório
             </a>
+            @endif
             <a href="{{ route('einstein.home') }}" class="btn btn-secondary">
                 Voltar
             </a>

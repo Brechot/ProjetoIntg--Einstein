@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Reserve;
 
 use App\Models\Reserve;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class Approve extends Component
@@ -30,7 +31,7 @@ class Approve extends Component
         $this->approve->status = 3;
         $this->approve->save();
 
-//        Mail::to($this->approve->user_sys->email)->send(new \App\Mail\Reservation\ResponseMail($this->approve));
+        Mail::to('henrique.brechot@villagres.com.br')->send(new \App\Mail\ApproveMailController($this->approve));
 
         return redirect()->route('einstein.reserve.approve')->with('success', 'Reserva '.$this->approve->id.' reprovada com sucesso!');
 
@@ -43,7 +44,7 @@ class Approve extends Component
         $this->approve->declined_desc = 'aceito';
         $this->approve->save();
 
-//        Mail::to($this->approve->user->email)->send(new \App\Mail\Reservation\ResponseMail($this->approve));
+        Mail::to('henrique.brechot@villagres.com.br')->send(new \App\Mail\ApproveMailController($this->approve));
 
         return redirect()->route('einstein.reserve.approve')->with('success', 'Reserva '.$this->approve->id.' aprovada com sucesso!');
     }

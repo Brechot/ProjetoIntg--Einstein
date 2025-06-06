@@ -100,10 +100,10 @@
                                     </select>
                             </div>
 
-                            <div class="col-md-3 pt-4 form-check">
-                                <input type="checkbox" wire:model.defer="automatic" class="form-check-input" id="automatic" name="automatic">
-                                <label class="form-check-label uk-text-bold" for="exampleCheck1">Reserva Automática</label>
-                            </div>
+{{--                            <div class="col-md-3 pt-4 form-check">--}}
+{{--                                <input type="checkbox" wire:model.defer="automatic" class="form-check-input" id="automatic" name="automatic">--}}
+{{--                                <label class="form-check-label uk-text-bold" for="exampleCheck1">Reserva Automática</label>--}}
+{{--                            </div>--}}
                         </div>
 
                         <form wire:submit.prevent="submit">

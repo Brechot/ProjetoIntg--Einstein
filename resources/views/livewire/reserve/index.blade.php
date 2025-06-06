@@ -8,7 +8,7 @@
                             Entre no laboratório para visualizar suas reservas!
                         </div>
                         <div>
-                            @if (auth()->user()->hasAnyRole(['admin', 'coordenador']))
+                            @if (auth()->user()->hasAnyRole(['admin', 'diretor']))
                                 <a class="text-end btn btn-primary" href="{{route('einstein.reserve.approve')}}">
                                     Aprovações <i class="fa-solid fa-thumbs-up"></i>
                                 </a>

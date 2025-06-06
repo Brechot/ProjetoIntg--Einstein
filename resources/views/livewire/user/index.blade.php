@@ -22,6 +22,9 @@
                 <th scope="col">
                     Status
                 </th>
+                <th scope="col">
+                    Ações
+                </th>
             </tr>
             </thead>
             <tbody>

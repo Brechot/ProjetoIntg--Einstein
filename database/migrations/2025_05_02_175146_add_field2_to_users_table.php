@@ -14,7 +14,7 @@ class AddField2ToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('reset_psw');
+            $table->boolean('reset_psw')->nullable();
         });
     }
 

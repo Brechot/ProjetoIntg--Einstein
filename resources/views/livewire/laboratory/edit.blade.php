@@ -4,6 +4,8 @@
         <x-spinner></x-spinner>
     </div>
 
+    @if (auth()->user()->hasAnyRole(['admin', 'diretor']))
+
     <div class="shadow p-5 mb-5 bg-body-tertiary rounded">
         <div class="col-md-5 position-relative pb-2">
             <label for="title" class="form-label uk-text-bold">Titulo <span style="color:red;">*</span></label>
@@ -20,6 +22,9 @@
                 {{ $errors->first('laboratory.num_computers') }}
             </div>
         </div>
+
+    @endif
+    @if (auth()->user()->hasAnyRole(['admin', 'diretor', 'ti']))
 
         <div class="col-md-5 position-relative pb-2">
             <label class="form-label uk-text-bold">Softwares Disponíveis<span style="color:red;">*</span></label>
@@ -45,6 +50,9 @@
             </div>
         </div>
 
+    @endif
+    @if (auth()->user()->hasAnyRole(['admin', 'diretor', 'ti']))
+
         <div class="mb-3 form-check">
             <input type="checkbox" wire:model.defer="laboratory.status" class="form-check-input" id="status" name="status">
             <label class="form-check-label uk-text-bold" for="exampleCheck1">Ativo</label>
@@ -59,5 +67,6 @@
             </a>
         </div>
     </div>
+    @endif
 
 </form>

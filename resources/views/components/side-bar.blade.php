@@ -13,7 +13,7 @@
             <i class="fas fa-times"></i>
         </button>
 
-        <a href="{{route("einstein.reserve.index")}}">
+        <a href="{{route("einstein.home")}}">
             <button class="sidebar-button-user">
                 <span>
                   <i class="fa-solid fa-house"></i>
@@ -22,59 +22,71 @@
             </button>
         </a>
 
-        <a href="{{route("einstein.users.index")}}">
-            <button class="sidebar-button-user">
-                  <span>
-                    <i class="fa-regular fa-user"></i>
-                    <span>Usuários</span>
-                  </span>
-            </button>
-        </a>
+        @if (auth()->user()->hasAnyRole(['admin', 'diretor']))
+            <a href="{{route("einstein.users.index")}}">
+                <button class="sidebar-button-user">
+                      <span>
+                        <i class="fa-regular fa-user"></i>
+                        <span>Usuários</span>
+                      </span>
+                </button>
+            </a>
+        @endif
 
-        <a href="{{route("einstein.roles.index")}}">
-            <button class="sidebar-button-regras">
-                  <span>
-                    <i class="fa-regular fa-pen-to-square"></i>
-                    <span>Regras</span>
-                  </span>
-            </button>
-        </a>
+        @if (auth()->user()->hasAnyRole(['admin', 'diretor']))
+            <a href="{{route("einstein.roles.index")}}">
+                <button class="sidebar-button-regras">
+                      <span>
+                        <i class="fa-regular fa-pen-to-square"></i>
+                        <span>Regras</span>
+                      </span>
+                </button>
+            </a>
+        @endif
 
-        <a href="{{route("einstein.laboratory.index")}}">
-            <button class="sidebar-button-lab">
-                  <span>
-                    <i class="fa-solid fa-flask"></i>
-                    <span>Laboratórios</span>
-                  </span>
-            </button>
-        </a>
+        @if (auth()->user()->hasAnyRole(['admin', 'diretor', 'ti']))
+            <a href="{{route("einstein.laboratory.index")}}">
+                <button class="sidebar-button-lab">
+                      <span>
+                        <i class="fa-solid fa-flask"></i>
+                        <span>Laboratórios</span>
+                      </span>
+                </button>
+            </a>
+        @endif
 
-        <a href="{{route("einstein.discipline.index")}}">
-            <button class="sidebar-button-disciplina">
-                  <span>
-                    <i class="fa-solid fa-book"></i>
-                      <span>Disciplinas</span>
-                  </span>
-            </button>
-        </a>
+        @if (auth()->user()->hasAnyRole(['admin', 'coordenador']))
+            <a href="{{route("einstein.discipline.index")}}">
+                <button class="sidebar-button-disciplina">
+                      <span>
+                        <i class="fa-solid fa-book"></i>
+                          <span>Disciplinas</span>
+                      </span>
+                </button>
+            </a>
+        @endif
 
-        <a href="{{route("einstein.software.index")}}">
-            <button class="sidebar-button-software">
-                  <span>
-                    <i class="fa-solid fa-laptop-code"></i>
-                    <span>Software</span>
-                  </span>
-            </button>
-        </a>
+        @if (auth()->user()->hasAnyRole(['admin', 'ti']))
+            <a href="{{route("einstein.software.index")}}">
+                <button class="sidebar-button-software">
+                      <span>
+                        <i class="fa-solid fa-laptop-code"></i>
+                        <span>Software</span>
+                      </span>
+                </button>
+            </a>
+        @endif
 
-        <a href="{{route("einstein.reserve.index")}}">
-            <button class="sidebar-button-reservas">
-                  <span>
-                    <i class="fa-solid fa-marker"></i>
-                        <span>Reservas</span>
-                  </span>
-            </button>
-        </a>
+        @if (auth()->user()->hasAnyRole(['admin', 'coordenador','diretor','ti','professor']))
+            <a href="{{route("einstein.reserve.index")}}">
+                <button class="sidebar-button-reservas">
+                      <span>
+                        <i class="fa-solid fa-marker"></i>
+                            <span>Reservas</span>
+                      </span>
+                </button>
+            </a>
+        @endif
 
 
         <a class="dropdown-item" href="{{ route('logout') }}"

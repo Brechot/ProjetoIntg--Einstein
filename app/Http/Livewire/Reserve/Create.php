@@ -6,6 +6,9 @@ use App\Models\Discipline;
 use App\Models\Laboratory;
 use App\Models\Reserve;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class Create extends Component
@@ -78,6 +81,34 @@ class Create extends Component
         $endTime = Carbon::createFromFormat('H:i', $this->reserve->horfin);
         $hasAnyConflict = false;
 
+        $startDateTime = Carbon::parse($startDate->toDateString() . ' ' . $startTime->format('H:i:s'));
+        $endDateTime = Carbon::parse($endDate->toDateString() . ' ' . $endTime->format('H:i:s'));
+
+        //      Criando o periodo da reserva
+        $period = iterator_to_array(CarbonPeriod::create($startDateTime, $endDateTime));
+
+//      Não habilitar reserva para fins de semana, somento com repetição //UTILIZAR PARA BLOQUEAR RESERVA DE SABADO E DOMINGO
+//        foreach ($period as $date) {
+//            if ($date->isSaturday() || $date->isSunday()){
+//                return redirect()->route('admin.reservation.index', ['changeSubArea' => $this->changeSubArea, 'changeArea' => $this->changeArea, 'typeReserv' => $this->typeReserv])->with('warning', 'Para reservas de final de semana "Tipo de Repetição"!');
+//            }
+//        }
+
+        //Não habilitar reserva para fins de semana, somento com repetição
+        foreach ($period as $key => $date) {
+            if ($date->isSaturday()){
+                $next = $period[$key + 1] ?? null;
+                if($next && $next->isSunday()){
+                    return redirect()->route('admin.reservation.index', ['changeSubArea' => $this->changeSubArea, 'changeArea' => $this->changeArea, 'typeReserv' => $this->typeReserv])->with('warning', 'Para reservas de final de semana é necessário utilizar o campo "Tipo de Repetição"!');
+                }
+            }
+        }
+
+        if ($startDateTime->diffInDays($endDateTime) > 7) //Este tipo de calendário não permite reserva maior que 7 dias, entao obriga o usuário a utilizar a repetição
+        {
+            return redirect()->route('admin.reservation.index', ['changeSubArea' => $this->changeSubArea, 'changeArea' => $this->changeArea, 'typeReserv' => $this->typeReserv])->with('warning', 'Não é possivel fazer uma reserva ÚNICA maior que 7 dias, favor utilizar o campo "Tipo de Repetição"!');
+        }
+
 //          Mescla a data atual do loop com o horário para fazer a comparação no $hasConflict
         $startDateTime = Carbon::parse($startDate->toDateString() . ' ' . $startTime->format('H:i'));
         $endDateTime = Carbon::parse($endDate->toDateString() . ' ' . $endTime->format('H:i'));
@@ -107,9 +138,9 @@ class Create extends Component
         if ($hasAnyConflict) {
             return redirect()->route('einstein.reserve.create',$this->laboratory->id)->with('warning', 'Conflito na data, já existe uma reserva nesta data no item selecionado!');
         }
-//        else{
-//            Mail::to($this->reservation->subarea->email)->send(new \App\Mail\Reservation\ReserveMail($this->reservation));
-//        }
+        else{
+            Mail::to('henrique.brechot@villagres.com.br')->send(new \App\Mail\ReserveMailController($this->reserve));
+        }
 
         return redirect()->route('einstein.reserve.create',$this->laboratory->id)->with('success', 'Reserva Criada com Sucesso!');
     }
@@ -166,7 +197,7 @@ class Create extends Component
             $reservation->save();
         }
 
-//        Mail::to('henrique.brechot@villagres.com.br')->send(new \App\Mail\Reservation\ReserveMail($this->reservation));
+        Mail::to('henrique.brechot@villagres.com.br')->send(new \App\Mail\ReserveMailController($this->reserve));
 
 
         return redirect()->route('einstein.reserve.create',$this->laboratory->id)->with('success', 'Reservas diárias criadas com sucesso!');
@@ -225,11 +256,7 @@ class Create extends Component
             $reservation->save();
         }
 
-//        Mail::to('henrique.brechot@villagres.com.br')->send(new \App\Mail\Reservation\ReserveMail($this->reservation));
-        //$this->reservation->subarea->email
-//        if($this->changeArea != 1){
-//            Mail::to('henrique.brechot@villagres.com.br')->send(new \App\Mail\Reservation\ReserveMail($this->reservation));
-//        }
+        Mail::to('henrique.brechot@villagres.com.br')->send(new \App\Mail\ReserveMailController($this->reserve));
 
         return redirect()->route('einstein.reserve.create',$this->laboratory->id)->with('success', 'Reservas semanais criadas com sucesso!');
     }
@@ -285,10 +312,8 @@ class Create extends Component
             $reservation->save();
         }
 
-        //$this->reservation->subarea->email
-//        if($this->changeArea != 1){
-//            Mail::to('henrique.brechot@villagres.com.br')->send(new \App\Mail\Reservation\ReserveMail($this->reservation));
-//        }
+        Mail::to('henrique.brechot@villagres.com.br')->send(new \App\Mail\ReserveMailController($this->reserve));
+        
         return redirect()->route('einstein.reserve.create',$this->laboratory->id)->with('success', 'Reservas mensais criadas com sucesso!');
     }
 
@@ -326,9 +351,17 @@ class Create extends Component
 
     public function gettingDisciplineName()
     {
-        $this->discipline = Discipline::select('title')
-                                      ->where('status', 1)
-                                      ->get();
+        $this->discipline = DB::table('disciplines')
+            ->select('disciplines.id', 'disciplines.title')
+            ->join('discipline_software', 'discipline_software.discipline_id', '=', 'disciplines.id')
+            ->join('software', 'software.id', '=', 'discipline_software.software_id')
+            ->join('laboratory_software', 'laboratory_software.software_id', '=', 'software.id')
+            ->join('laboratories', 'laboratories.id', '=', 'laboratory_software.laboratory_id') // os joins obrigam a ter no minimo 1 software vinculado em ambos
+            ->where('laboratories.id', $this->laboratory->id)
+            ->where('disciplines.students', '<=', DB::raw('laboratories.num_computers * 2')) //SQL bruto no laravel
+            ->where('disciplines.status', 1)
+            ->groupBy('disciplines.id', 'disciplines.title')
+            ->get();
     }
 
     protected function rules(): array

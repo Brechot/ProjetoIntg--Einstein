@@ -9,15 +9,15 @@
                         <div class="card-header text-center text-white bg-secondary">{{ __('Resetar Senha') }}</div>
 
                         <div class="card-body bg-light">
-                            <form method="POST" action="{{ route('password.update') }}">
+                            <form method="POST" action="{{ route('password.alter') }}">
                                 @csrf
 
-                                <input type="hidden" name="token" value="{{ $token }}">
+                                <input type="hidden" name="token" value="{{ $token ?? '' }}">
 
                                 <div class="row mb-3">
                                     <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Endereço de E-mail') }}</label>
                                     <div class="col-md-6">
-                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" disabled value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
+                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
                                         @error('email')
                                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                                         @enderror
@@ -33,16 +33,6 @@
                                         @enderror
                                     </div>
                                 </div>
-
-                                @if ($errors->any())
-                                    <div class="text-danger text-center mb-3">
-                                        <ul class="list-unstyled mb-0">
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
 
                                 <div class="row mb-3">
                                     <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirmar Senha') }}</label>

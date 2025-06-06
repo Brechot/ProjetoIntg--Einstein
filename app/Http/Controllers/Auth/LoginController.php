@@ -8,6 +8,8 @@ use http\Client\Curl\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 
 class LoginController extends Controller
@@ -39,38 +41,72 @@ class LoginController extends Controller
     {
         $this->validateLogin($request);
 
-        if (method_exists($this, 'hasTooManyLoginAttempts') &&
-            $this->hasTooManyLoginAttempts($request)) {
+        // If the class is using the ThrottlesLogins trait, we can automatically throttle
+        // the login attempts for this application. We'll key this by the username and
+        // the IP address of the client making these requests into this application.
+        if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
+
             return $this->sendLockoutResponse($request);
         }
 
-        if (Auth::attempt($this->credentials($request), $request->filled('remember'))) {
-            $request->session()->regenerate();
-            $user = Auth::user();
+        $data = \App\Models\User::where($this->username(), $request->only($this->username()))->first();
+        if (isset($data)) {
+            if ($data->status == 1) {
+                if($data->reset_psw == 1){
+                    $email = $data->email;
+                    return redirect()->route('password.index',$email);
+                }else{
 
-            if ($user->status == 0) {
-                Auth::logout();
-                return redirect('login')->with('error', 'Usuário inativo, entrar em contato com o administrador!');
+                    if ($this->attemptLogin($request)) {
+                        return $this->sendLoginResponse($request);
+                    }
+
+                    // If the login attempt was unsuccessful we will increment the number of attempts
+                    // to login and redirect the user back to the login form. Of course, when this
+                    // user surpasses their maximum number of attempts they will get locked out.
+                    $this->incrementLoginAttempts($request);
+
+                    return $this->sendFailedLoginResponse($request);
+                }
+            }else{
+                $errors = [$this->username() => trans('Usuário Inativo, favor entrar em contato com o Diretor')];
+
+                return redirect()->back()
+                    ->withInput($request->only($this->username(), 'remember'))
+                    ->withErrors($errors);
             }
 
-            if ($user->reset_psw) {
-                $token = app('auth.password.broker')->createToken($user);
-                return view('auth.passwords.reset')->with([
-                    'token'             => $token,
-                    'id'                => $user->id,
-                    'email'             => $user->email,
-                    'username'          => $user->username,
-                    'password_old'      => $request->password,
-                    'current_password'  => true,
-                ]);
-            }
-
-            return redirect()->intended($this->redirectPath());
         }
 
+        // If the login attempt was unsuccessful we will increment the number of attempts
+        // to login and redirect the user back to the login form. Of course, when this
+        // user surpasses their maximum number of attempts they will get locked out.
         $this->incrementLoginAttempts($request);
+
         return $this->sendFailedLoginResponse($request);
+    }
+
+    public function alterarSenhaIndex($email){
+        return view('admin.user.resetChange', compact('email'));
+    }
+
+    public function alterarSenha(Request $request){
+        $this->validate($request, [
+            'email' => 'required | email | max:255',
+            'password' => ['required', 'confirmed', Password::min(8)],
+        ]);
+
+
+        $data = \App\Models\User::where('email', $request->email)->first();
+        $data->email = $request->email;
+        $data->password = Hash::make($request->password);
+        $data->reset_psw = 0;
+        $data->save();
+
+        Auth::login($data);
+        return redirect()->route('einstein.home');
+
     }
 
 

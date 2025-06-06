@@ -25,6 +25,9 @@
                 <th scope="col">
                     Disciplina
                 </th>
+                <th scope="col">
+                    Ações
+                </th>
             </tr>
             </thead>
             <tbody>

@@ -36,7 +36,7 @@
 
         <div class="col-md-5 position-relative pb-2">
             <label for="password" class="form-label uk-text-bold">Senha <span style="color:red;">*</span></label>
-            <input type="password" class="form-control" id="password" name="password" wire:model.defer="password" required>
+            <input type="password" class="form-control" id="password" name="password" wire:model.defer="password">
             <div class="text-danger">
                 {{ $errors->first('password') }}
             </div>
@@ -51,8 +51,6 @@
             <input type="checkbox" wire:model.defer="user.status" class="form-check-input" id="status" name="status">
             <label class="form-check-label uk-text-bold" for="exampleCheck1">Ativo</label>
         </div>
-
-    {{--    @dd($errors)--}}
 
         <div class="form-group pt-2">
             <button class="btn btn-primary" type="submit">

@@ -57,7 +57,7 @@ class Edit extends Component
 
             ],
             'password' => [
-
+                'nullable'
             ],
             'user.role_id' => [
                 'required'

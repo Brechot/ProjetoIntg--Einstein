@@ -52,13 +52,13 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-6 text-end">
-                                        @if (Route::has('password.request'))
-                                            <a class="btn btn-link p-0 small" href="{{ route('password.request') }}">
-                                                Esqueceu a senha?
-                                            </a>
-                                        @endif
-                                    </div>
+{{--                                    <div class="col-6 text-end">--}}
+{{--                                        @if (Route::has('password.request'))--}}
+{{--                                            <a class="btn btn-link p-0 small" href="{{ route('password.request') }}">--}}
+{{--                                                Esqueceu a senha?--}}
+{{--                                            </a>--}}
+{{--                                        @endif--}}
+{{--                                    </div>--}}
                                 </div>
 
                             </form>

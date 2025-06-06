@@ -18,7 +18,7 @@ class ReserveController extends Controller
      */
     public function index()
     {
-        abort_unless(Gate::allows('role', ['admin','diretor','coordenador','ti']), 403);
+        abort_unless(Gate::allows('role', ['admin','diretor','coordenador','ti','professor']), 403);
 
         return view('admin.reserve.index');
     }
@@ -30,7 +30,7 @@ class ReserveController extends Controller
      */
     public function create($laboratoryId)
     {
-        abort_unless(Gate::allows('role', ['admin','coordenador']), 403);
+        abort_unless(Gate::allows('role', ['admin','coordenador','diretor','ti','professor']), 403);
 
         $laboratory = Laboratory::with('softwares')->findOrFail($laboratoryId);
 
